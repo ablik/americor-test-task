@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
 use App\Application\Command\CreateCustomerCommand;
 use App\Application\Handler\CreateCustomerHandler;
@@ -20,13 +20,13 @@ class CreateCustomerHandlerTest extends TestCase
         $handler = new CreateCustomerHandler($repository);
 
         $command = new CreateCustomerCommand(
+            '123-45-6789',
             'John',
             'Doe',
             30,
             'City',
             'CA',
             '12345',
-            '123-45-6789',
             600,
             'john.doe@example.com',
             '555-555-5555'

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
 use App\Domain\Customer\Customer;
 use App\Domain\Customer\ValueObject\Address;

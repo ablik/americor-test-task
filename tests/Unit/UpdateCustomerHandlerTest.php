@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
 use App\Application\Command\UpdateCustomerCommand;
 use App\Application\Handler\UpdateCustomerHandler;
@@ -35,13 +35,13 @@ class UpdateCustomerHandlerTest extends TestCase
         $handler = new UpdateCustomerHandler($repository);
 
         $command = new UpdateCustomerCommand(
+            '123-45-6789',
             'Jane',
             'Doe',
             32,
             'New City',
             'NY',
             '54321',
-            '123-45-6789',
             700,
             'jane.doe@example.com',
             '555-555-5556'

@@ -1,5 +1,23 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+# Route for creating a new customer
+create_customer:
+    path: /customers
+    controller: App\UI\REST\CustomerController::create
+    methods: POST
+
+# Route for updating existing customer information
+update_customer:
+    path: /customers/{ssn}
+    controller: App\UI\REST\CustomerController::update
+    methods: PUT
+
+# Route for checking loan eligibility
+check_loan_eligibility:
+    path: /loans/check-eligibility
+    controller: App\UI\REST\LoanController::checkEligibility
+    methods: POST
+
+# Route for issuing a loan
+issue_loan:
+    path: /loans/issue
+    controller: App\UI\REST\LoanController::issue
+    methods: POST
