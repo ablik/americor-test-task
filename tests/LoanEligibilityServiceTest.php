@@ -18,9 +18,9 @@ class LoanEligibilityServiceTest extends TestCase
         $this->service = new LoanEligibilityService();
     }
 
-    public function testClientWithLowFicoScoreIsNotEligible(): void
+    public function testCustomerWithLowFicoScoreIsNotEligible(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             30,
@@ -30,12 +30,12 @@ class LoanEligibilityServiceTest extends TestCase
             'john.doe@example.com',
             '555-555-5555'
         );
-        $this->assertFalse($this->service->isEligible($client, 2000));
+        $this->assertFalse($this->service->isEligible($customer, 2000));
     }
 
-    public function testClientWithLowIncomeIsNotEligible(): void
+    public function testCustomerWithLowIncomeIsNotEligible(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             30,
@@ -45,12 +45,12 @@ class LoanEligibilityServiceTest extends TestCase
             'john.doe@example.com',
             '555-555-5555'
         );
-        $this->assertFalse($this->service->isEligible($client, 500));
+        $this->assertFalse($this->service->isEligible($customer, 500));
     }
 
-    public function testClientWithAgeOutsideRangeIsNotEligible(): void
+    public function testCustomerWithAgeOutsideRangeIsNotEligible(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             17,
@@ -60,9 +60,9 @@ class LoanEligibilityServiceTest extends TestCase
             'john.doe@example.com',
             '555-555-5555'
         );
-        $this->assertFalse($this->service->isEligible($client, 2000));
+        $this->assertFalse($this->service->isEligible($customer, 2000));
 
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             61,
@@ -72,12 +72,12 @@ class LoanEligibilityServiceTest extends TestCase
             'john.doe@example.com',
             '555-555-5555'
         );
-        $this->assertFalse($this->service->isEligible($client, 2000));
+        $this->assertFalse($this->service->isEligible($customer, 2000));
     }
 
-    public function testClientOutsideEligibleStatesIsNotEligible(): void
+    public function testCustomerOutsideEligibleStatesIsNotEligible(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             30,
@@ -87,12 +87,12 @@ class LoanEligibilityServiceTest extends TestCase
             'john.doe@example.com',
             '555-555-5555'
         );
-        $this->assertFalse($this->service->isEligible($client, 2000));
+        $this->assertFalse($this->service->isEligible($customer, 2000));
     }
 
-    public function testClientInNYCanBeRandomlyDenied(): void
+    public function testCustomerInNYCanBeRandomlyDenied(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             30,
@@ -106,16 +106,16 @@ class LoanEligibilityServiceTest extends TestCase
         // Test multiple times to ensure randomness is covered
         $results = [];
         for ($i = 0; $i < 10; $i++) {
-            $results[] = $this->service->isEligible($client, 2000);
+            $results[] = $this->service->isEligible($customer, 2000);
         }
 
         $this->assertContains(false, $results);
         $this->assertContains(true, $results);
     }
 
-    public function testClientInCACalculatesCorrectInterestRate(): void
+    public function testCustomerInCACalculatesCorrectInterestRate(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             30,
@@ -128,12 +128,12 @@ class LoanEligibilityServiceTest extends TestCase
         $baseRate = 5.00;
 
         $expectedRate = $baseRate + 11.49;
-        $this->assertEquals($expectedRate, $this->service->calculateInterestRate($client, $baseRate));
+        $this->assertEquals($expectedRate, $this->service->calculateInterestRate($customer, $baseRate));
     }
 
-    public function testClientNotInCACalculatesCorrectInterestRate(): void
+    public function testCustomerNotInCACalculatesCorrectInterestRate(): void
     {
-        $client = new Customer(
+        $customer = new Customer(
             'John',
             'Doe',
             30,
@@ -146,6 +146,6 @@ class LoanEligibilityServiceTest extends TestCase
         $baseRate = 5.00;
 
         $expectedRate = $baseRate;
-        $this->assertEquals($expectedRate, $this->service->calculateInterestRate($client, $baseRate));
+        $this->assertEquals($expectedRate, $this->service->calculateInterestRate($customer, $baseRate));
     }
 }
