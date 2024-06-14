@@ -51,9 +51,4 @@ class Loan
     {
         return $this->amount;
     }
-
-    public function setInterestRate(float $interestRate): void
-    {
-        $this->interestRate = $interestRate;
-    }
 }

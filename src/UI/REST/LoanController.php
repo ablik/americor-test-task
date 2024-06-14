@@ -16,8 +16,7 @@ class LoanController
     private IssueLoanHandler $issueLoanHandler;
 
     public function __construct(
-        CheckLoanEligibilityHandler $checkLoanEligibilityHandler,
-        IssueLoanHandler $issueLoanHandler
+        CheckLoanEligibilityHandler $checkLoanEligibilityHandler, IssueLoanHandler $issueLoanHandler
     ) {
         $this->checkLoanEligibilityHandler = $checkLoanEligibilityHandler;
         $this->issueLoanHandler = $issueLoanHandler;
@@ -29,6 +28,7 @@ class LoanController
     public function checkEligibility(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
         $command = new CheckLoanEligibilityCommand(
             $data['ssn'],
             $data['monthlyIncome']
@@ -45,6 +45,7 @@ class LoanController
     public function issue(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
         $command = new IssueLoanCommand(
             $data['ssn'],
             $data['productName'],

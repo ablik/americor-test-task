@@ -21,5 +21,4 @@ class FICO
     {
         return $this->score;
     }
-
 }

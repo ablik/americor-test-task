@@ -1,0 +1,52 @@
+### Create new customer
+POST http://127.0.0.1:8000/customers
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "age": 30,
+  "city": "LA",
+  "state": "CA",
+  "zipCode": "12345",
+  "ssn": "123-45-6789",
+  "fico": 600,
+  "email": "john.doe@example.com",
+  "phoneNumber": "555-555-5555"
+}
+
+### Update customer
+PUT http://127.0.0.1:8000/customers/123-45-6789
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "age": 31,
+  "city": "LA",
+  "state": "CA",
+  "zipCode": "12345",
+  "fico": 600,
+  "email": "john.doe@example.com",
+  "phoneNumber": "555-555-5555"
+}
+
+### Check loan eligibility
+POST http://127.0.0.1:8000/loans/check-eligibility
+Content-Type: application/json
+
+{
+  "ssn": "123-45-6789",
+  "monthlyIncome": 1000
+}
+
+### Check loan eligibility
+POST http://127.0.0.1:8000/loans/issue
+Content-Type: application/json
+
+{
+  "ssn": "123-45-6789",
+  "productName": "Medical Debt",
+  "term": 12,
+  "amount": 50000
+}

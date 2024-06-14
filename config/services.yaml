@@ -14,7 +14,7 @@ services:
             - '../src/Kernel.php'
 
     # Explicitly define repositories and other services
-    App\Infrastructure\Persistence\InMemoryClientRepository:
+    App\Infrastructure\Persistence\InMemoryCustomerRepository:
         public: true
 
     App\Infrastructure\Persistence\InMemoryLoanRepository:

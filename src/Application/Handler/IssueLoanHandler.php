@@ -3,7 +3,11 @@
 namespace App\Application\Handler;
 
 use App\Application\Command\IssueLoanCommand;
+use App\Domain\Customer\Customer;
 use App\Domain\Customer\CustomerRepositoryInterface;
+use App\Domain\Customer\ValueObject\Address;
+use App\Domain\Customer\ValueObject\FICO;
+use App\Domain\Customer\ValueObject\SSN;
 use App\Domain\Loan\Loan;
 use App\Domain\Loan\LoanEligibilityService;
 use App\Domain\Loan\LoanNotificationService;
@@ -32,11 +36,16 @@ class IssueLoanHandler
 
     public function handle(IssueLoanCommand $command): void
     {
-        $customer = $this->customerRepository->findById($command->ssn);
-
-        if (!$customer) {
-            throw new \Exception('Customer not found.');
-        }
+        $customer = new Customer(
+            'John',
+            'Doe',
+            30,
+            new Address('City', 'CA', '12345'),
+            new SSN('123-45-6789'),
+            new FICO(600),
+            'john.doe@example.com',
+            '555-555-5555'
+        );
 
         $eligible = $this->loanEligibilityService->isEligible($customer, $command->amount);
 

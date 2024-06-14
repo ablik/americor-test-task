@@ -7,6 +7,9 @@ use App\Domain\Customer\CustomerRepositoryInterface;
 
 class InMemoryCustomerRepository implements CustomerRepositoryInterface
 {
+    /**
+     * @var array<string, Customer> $customers
+    */
     private array $customers = [];
 
     public function save(Customer $customer): void
