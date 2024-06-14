@@ -36,16 +36,11 @@ class IssueLoanHandler
 
     public function handle(IssueLoanCommand $command): void
     {
-        $customer = new Customer(
-            'John',
-            'Doe',
-            30,
-            new Address('City', 'CA', '12345'),
-            new SSN('123-45-6789'),
-            new FICO(600),
-            'john.doe@example.com',
-            '555-555-5555'
-        );
+        $customer = $this->customerRepository->findById($command->ssn);
+
+        if (!$customer) {
+            throw new \Exception('Customer not found.');
+        }
 
         $eligible = $this->loanEligibilityService->isEligible($customer, $command->amount);
 

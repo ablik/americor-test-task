@@ -38,8 +38,8 @@ RUN composer install --no-scripts --no-interaction
 # Re-enable root user to perform additional setup
 USER root
 
-# Set permissions for cache and logs
-RUN chown -R www-data:www-data var/cache var/log
+# Create cache and log directories and set permissions
+RUN mkdir -p var/cache var/log && chown -R www-data:www-data var/cache var/log
 
 # Switch back to www-data user for runtime
 USER www-data
