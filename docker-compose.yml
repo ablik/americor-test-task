@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: symfony_app
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./php.ini:/usr/local/etc/php/php.ini
+    environment:
+      MAILER_DSN: smtp://mailhog:1025
+    expose:
+      - "9000"
+    depends_on:
+      - mailhog
+
+  web:
+    image: nginx:alpine
+    container_name: symfony_web
+    volumes:
+      - .:/var/www
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+volumes:
+  db_data:
